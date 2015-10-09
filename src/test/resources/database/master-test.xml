@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <!--<changeSet id="H2-1" author="romfil">-->
+        <!--<comment>Function to make oracle timestamp compatible with H2</comment>-->
+        <!--<sql>-->
+            <!--CREATE ALIAS to_timestamp FOR ".utils.H2OracleModeFunctions.to_timestamp";-->
+            <!--commit;-->
+        <!--</sql>-->
+    <!--</changeSet>-->
+
+    <include file="/database/master.xml"/>
+
+    <include file="/database/test-data/GEN-1.sql"/>
+
+</databaseChangeLog>

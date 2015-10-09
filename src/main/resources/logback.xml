@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true" scanPeriod="10 minutes">
+    <property name="LOG_HOME" value="${com.sun.aas.instanceRoot}/logs"/>
+    <property name="ENCODER_PATTERN" value="%d [%-5p] %c{1} [%X] - %m%n"/>
+    <property name="HOURLY_ROLLING_FILE_NAME_PATTERN" value=".%d{yyyy-MM-dd-HH}"/>
+    <property name="DAILY_ROLLING_FILE_NAME_PATTERN" value=".%d{yyyy-MM-dd}"/>
+
+    <appender name="barganhaAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_PATH}/barganha.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_PATH}/barganha.log${DAILY_ROLLING_FILE_NAME_PATTERN}</FileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${ENCODER_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <appender name="uncategorizedAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_PATH}/barganha-uncategorized.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_PATH}/barganha-uncategorized.log${DAILY_ROLLING_FILE_NAME_PATTERN}</FileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${ENCODER_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <appender name="restAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_PATH}/barganha-rest.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_PATH}/barganha-rest.log${DAILY_ROLLING_FILE_NAME_PATTERN}</FileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${ENCODER_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- additivity="false" indicates that the logger should NOT inherit its ancestors appenders, in this case 'root' -->
+    <logger name="com.barganha" level="DEBUG" additivity="false">
+        <appender-ref ref="barganhaAppender"/>
+    </logger>
+    <!--<logger name="com.unibet.campaignlauncher.web.support.FancySLF4JRequestLoggingFilter" level="INFO" additivity="false">-->
+        <!--<appender-ref ref="restAppender"/>-->
+    <!--</logger>-->
+    <logger name="com.apache" level="WARN"/>
+    <logger name="org.hibernate" level="INFO"/>
+    <logger name="org.springframework" level="DEBUG"/>
+
+    <root level="DEBUG">
+        <appender-ref ref="uncategorizedAppender"/>
+    </root>
+
+    <shutdownHook/>
+</configuration>

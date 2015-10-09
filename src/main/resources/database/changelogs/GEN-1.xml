@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="GEN-1-1" author="romero.paoliello" failOnError="true" runOnChange="false" runAlways="false">
+        <createTable tableName="CUSTOMER">
+            <column name="ID" type="NUMBER(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EMAIL" type="VARCHAR2(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PASSWORD" type="VARCHAR2(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR2(256)"/>
+            <column name="RESET_PASSWORD_TOKEN" type="VARCHAR2(256)"/>
+            <column name="CREATED_ON" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED_ON" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="GEN-1-2" author="romero.paoliello" failOnError="true" runOnChange="false" runAlways="false">
+        <createSequence sequenceName="SQ_USER_ID" startValue="1" incrementBy="1" />
+    </changeSet>
+
+</databaseChangeLog>
