@@ -1,23 +1,22 @@
 ### Installation
 
-First install [Vagrant](https://www.vagrantup.com/downloads.html) and [Virtual Box](https://www.virtualbox.org/wiki/Downloads).
+* Install [Vagrant](https://www.vagrantup.com/downloads.html) and [Virtual Box](https://www.virtualbox.org/wiki/Downloads).
 
-Then, in the env-builder folder, you can run the following:
+* In the env-builder folder, run the following:
 
-    # Start up the virtual machine:
-    $ vagrant up
+```
+vagrant up
+```
 
-    # Stop the virtual machine:
-    $ vagrant halt
-
-Once it has started up you can connect to the PostgresSQL using the following: 
-
-      Host: localhost
-      Port: 15432
-      Database: barganha
-      Username: barganha
-      Password: barganha
-
+* Once it has started up you can connect to the PostgresSQL using the following: 
+```
+Host: localhost
+Port: 15432
+Database: barganha
+Username: barganha
+Password: barganha
+```
+   
 ### What does it do?
 
 It creates a virtual server running Ubuntu 14.04 with the latest version of PostgreSQL installed. 
