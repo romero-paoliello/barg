@@ -10,8 +10,8 @@
         <version>1.2.5.RELEASE</version>
     </parent>
 
-    <groupId>com.com.barganha.barganha</groupId>
-    <artifactId>com.barganha.barganha</artifactId>
+    <groupId>com.barganha</groupId>
+    <artifactId>barganha</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
@@ -112,6 +112,42 @@
                         <configuration>
                             <changeLogFile>src/main/resources/database/master.xml</changeLogFile>
                             <propertyFile>src/main/resources/database/local.properties</propertyFile>
+                            <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>update</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <dependencies>
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>9.4-1203-jdbc4</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>liquibaseSi</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.liquibase</groupId>
+                        <artifactId>liquibase-maven-plugin</artifactId>
+                        <version>3.4.1</version>
+                        <configuration>
+                            <changeLogFile>src/main/resources/database/master.xml</changeLogFile>
+                            <driver>org.postgresql.Driver</driver>
+                            <url>jdbc:postgresql://ec2-54-217-231-152.eu-west-1.compute.amazonaws.com:5432/d6fkgvkor9m9tq?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory</url>
+                            <username>gyxfnokxtcxlpm</username>
+                            <password>OvbV6mltBhcGU_e-9Fh5Y7QtO6</password>
+                            <contexts>si</contexts>
                             <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
                         </configuration>
                         <executions>
