@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Calendar;
 
+import static org.springframework.util.StringUtils.addStringToArray;
 import static org.springframework.util.StringUtils.hasLength;
 
 @Component
@@ -25,6 +27,9 @@ public class SessionServiceImpl implements SessionService {
     private static final String SECRET = "galodoido";
 
     private static final String AUTH_HEADER_PARAM_NAME = "Authorization";
+
+    private static final int DAYS_TO_EXPIRE = 5;
+
 
     private static ThreadLocal<Claims> threadLocal;
 
@@ -41,10 +46,16 @@ public class SessionServiceImpl implements SessionService {
 
         logger.debug("Creating user session - email={}", ad.getEmail());
 
+
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DAY_OF_MONTH, DAYS_TO_EXPIRE);
+        Date expirationDate = c.getTime();
+
         return Jwts.builder()
                 .setSubject(ad.getUserId().toString())
                 .setClaims(map)
                 .setIssuedAt(new Date())
+                .setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS256, SECRET)
                 .compact();
     }

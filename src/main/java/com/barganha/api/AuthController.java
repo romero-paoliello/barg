@@ -28,6 +28,7 @@ public class AuthController {
 
         if (ad != null) {
             String sessionToken = sessionService.create(ad);
+
             HttpHeaders headers = sessionService.setHeader(sessionToken);
             return new ResponseEntity<>(ad, headers, HttpStatus.OK);
         } else {
