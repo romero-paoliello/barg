@@ -37,6 +37,21 @@ public class AuthController {
         }
     }
 
+    @RequestMapping(value = "/open/facebooklogin", method = RequestMethod.POST)
+    public ResponseEntity facebooklogin(@RequestBody LoginData ld) {
+        AccountData ad = authService.facebooklogin(ld.getEmail());
+
+        if (ad != null) {
+            String sessionToken = sessionService.create(ad);
+
+            HttpHeaders headers = sessionService.setHeader(sessionToken);
+            return new ResponseEntity<>(ad, headers, HttpStatus.OK);
+        } else {
+            //Message message = new Message(MessageType.ERROR, "Login failed", "Login failed, please try again.");
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
     @RequestMapping(value = "/secured/logout", method = RequestMethod.PUT)
     public ResponseEntity logout() {
         sessionService.clear(); // TODO think about the best way to implement this using JWT - consider timeout

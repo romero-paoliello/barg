@@ -3,6 +3,7 @@ package com.barganha.service;
 import com.barganha.dao.UserDao;
 import com.barganha.model.User;
 import com.barganha.model.data.AccountData;
+import com.barganha.util.DateTimeHelper;
 import com.barganha.util.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.joda.time.DateTime;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static org.springframework.util.StringUtils.hasLength;
@@ -42,6 +44,22 @@ public class AuthServiceImpl implements AuthService {
             logger.info("Login failed - email={}", email);
             // TODO implement login failed counter
             return null;
+        }
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public AccountData facebooklogin(String email) {
+        User user = userDao.findByEmail(email);
+        if (user != null) {
+            return new AccountData(user);
+        } else {
+            User userFacebook = new User();
+            userFacebook.setEmail(email);
+            userFacebook.setPassword("12345678");
+            userFacebook.setCreatedOn(DateTimeHelper.getCurrentDateTime());
+            userDao.save(userFacebook);
+            return new AccountData(userFacebook);
         }
     }
 

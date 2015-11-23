@@ -7,4 +7,5 @@ public interface AuthService {
 
 	AccountData login(String email, String password);
 
+	AccountData facebooklogin(String email);
 }
